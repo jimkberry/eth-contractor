@@ -216,7 +216,7 @@ class App extends Component {
                     
                     <label htmlFor="function_fld" className="panLabel left">Function: </label>          
                     <select id="function_fld" className="panSelFld" onChange={this.onSelect} 
-                        defaultValue={curFuncSig}>         
+                        value={curFuncSig}>         
                           {ci.funcSigs.map((sig, i) => {
                               return <option key={i} value={sig}>{ci.funcSpecs[sig]}</option>;              
                           })}          
