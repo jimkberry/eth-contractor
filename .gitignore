@@ -1,0 +1,6 @@
+node_modules
+dist/
+*.log
+.project
+.pydevproject
+.DS_Store
