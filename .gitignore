@@ -1,6 +1,7 @@
 node_modules
-dist/
+build/
 *.log
 .project
+.settings
 .pydevproject
 .DS_Store

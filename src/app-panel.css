@@ -1,0 +1,167 @@
+
+.AppPanel
+{
+    position: absolute;
+    background-color: black;
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    border: solid 2px  #a0a000;
+    border-radius: 15px;
+    transform: translate(-50%, -50%);
+    padding: 20px 20px 20px 20px;
+
+}
+
+.AppPanel.internal
+{
+	position: relative;
+    width: 90%;
+    left: 50%;
+    border-radius: 3px;
+    transform: translate(-50%, 0%);
+    padding: 5px 5px 5px 5px;
+    border: solid 1px #a0a000;
+    box-shadow: None; 
+    padding-bottom: 10px;
+}
+
+.AppPanel .panTitle
+{
+    text-align: center;
+    font-size: 125%;    
+}
+
+.AppPanel .panLabel
+{
+    white-space: nowrap;
+    font-size: 80%;
+}
+
+.AppPanel .panLabel.small
+{
+    font-size: 90%;
+}
+
+.AppPanel .panLabel.top
+{
+	padding-top: 10px;
+    vertical-align: top;
+}
+
+.AppPanel .panTxtFld
+{
+    background: #000080;
+    border: 1px solid #808000;
+    border-radius: 3px;
+    font-size: 80%;
+    box-shadow: -1px -1px 1px 1px rgba(200,200,64,.5) inset;
+    margin: 1em 0 0 1em;
+    color: yellow;
+    transition: background .5s;    
+}
+
+.AppPanel .wide
+{
+	width: 70%
+}
+
+.AppPanel.internal .wide
+{
+    width: 80%
+}
+
+.AppPanel .left {
+    width: 20%;
+    display: inline-block;
+    text-align: right;  
+}
+
+.AppPanel.internal .left {
+    width: 15%;
+    display: inline-block;
+    text-align: right;  
+}
+
+.AppPanel .right {
+    display: inline-block;
+    white-space: nowrap;        
+}
+
+.AppPanel .right:after {
+    display: block; 
+}
+
+.AppPanel .valueFld
+{
+    display: inline-block;  
+    font-size: 80%;
+    margin: 1em 0 0 1em;
+    color: #ffa000;
+    text-shadow: None;
+}
+
+.AppPanel .panSelFld
+{
+    background: #000060;
+    border: 1px solid yellow;
+    border-radius: 3px;
+    box-shadow: -1px -1px 1px 1px rgba(128,128,32,.5) inset;
+    margin: 1em 0 0 1em;
+    color: #ffff00;
+    text-shadow: None;  
+    transition: background .5s;    
+}
+
+.AppPanel .panBtn
+{
+    border: 1px solid #00a000;
+    background: #006000;
+    color: #00ff00;
+    border-radius: .5em;
+    transition: background .5s;
+    margin: 4px;
+}
+
+.AppPanel .panBtn.inline
+{
+    display: inline-block;  
+}
+
+.AppPanel .dlgBtn.ctr
+{
+    font-size: 100%;
+    display: block;
+    margin: 1em auto 0 auto;
+}
+
+.AppPanel .panBtn.right
+{
+    font-size: 100%;
+    display: inline-block;
+    float: right;
+    margin: 1em;    
+}
+
+
+.AppPanel .panBtn.sq
+{
+    font-size: 100%;
+    margin: 2px;
+    padding: 0;
+    border-radius: .1em;    
+}
+
+.AppPanel .panBtn:disabled
+{
+    background: #404040;
+    color: #808080;
+}
+
+.AppPanel .panBtn:not(:disabled):hover
+{
+    background: #20a020;
+    box-shadow: 0px 0px 10px 5px rgba(64,128,64,.5);    
+}
+
+

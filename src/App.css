@@ -1,0 +1,49 @@
+
+.App {
+    width: 100%;
+    height: 800px;
+    background: linear-gradient(to bottom, 
+            #000080 0%,#000020 44%,#000040 68%,#000080 100%);
+}
+
+.App .text-glow-green
+{
+    text-shadow: 1px 0px 4px  #00a000,
+                 -1px 0px 4px #00a000,
+                 0px -1px 4px #00a000,
+                 0px 1px 4px  #00a000;  
+}
+
+.App button {
+    border: 1px solid #00a000;
+    font-size: 100%;
+    background: #006000;
+    color: #00ff00;
+    border-radius: .5em;
+    margin: 4px;
+}
+
+.App button:hover
+{
+    background: #009000;    
+}
+
+.App button:active
+{   
+    background: #ffff00;    
+}
+
+.red
+{
+    color: red;
+}
+
+.green
+{
+    color: #00ff00;
+}
+
+.orange
+{
+    color: #ffff00; 
+}
