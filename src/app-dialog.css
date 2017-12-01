@@ -1,0 +1,173 @@
+
+.AppDialog
+{
+    position: absolute;
+    background-color: black;
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    border: solid 2px  #a0a000;
+    border-radius: 15px;
+    transform: translate(-50%, -50%);
+    padding: 20px 20px 20px 20px;
+
+}
+
+.AppDialog .cover
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;    
+	width: 100%;
+	height: 100%;
+    border-radius: 15px;	
+	background: black;
+	opacity: .5;
+    transform: translate(-50%, -50%);	
+} 
+
+.AppDialog .dlgTitle
+{
+    text-align: center;
+    font-size: 125%;	
+}
+
+
+.AppDialog .dlgLabel
+{
+    white-space: nowrap;
+    font-size: 80%;
+}
+
+.AppDialog .dlgLabel.top
+{
+    padding-top: 20px;
+    vertical-align: top;
+}
+
+.AppDialog .dlgTxtFld
+{
+    background: #000080;
+    border: 1px solid #808000;
+    border-radius: 3px;
+    font-size: 80%;
+    box-shadow: -1px -1px 1px 1px rgba(200,200,64,.5) inset;
+    margin: 1em 0 0 1em;
+    color: yellow;
+    transition: background .5s;     
+}
+
+.AppDialog .wide
+{
+    width: 70%
+}
+
+.AppDialog .left {
+	width: 25%;
+	display: inline-block;
+	text-align: right;	
+}
+
+.AppDialog .right {
+	display: inline-block;
+	white-space: nowrap;		
+}
+
+.AppDialog .right:after {
+	display: block;	
+}
+
+.AppDialog .valueFld
+{
+    display: inline-block;  
+    font-size: 80%;
+    margin: 1em 0 0 1em;
+    color: #ffa000;
+    text-shadow: None;
+}
+
+.AppDialog .dlgSelFld
+{
+    background: #000060;
+    border: 1px solid yellow;
+    border-radius: 3px;
+    box-shadow: -1px -1px 1px 1px rgba(128,128,32,.5) inset;
+    margin: 1em 0 0 1em;
+    color: #ffff00;
+    text-shadow: None;  
+    transition: background .5s;   
+}
+
+.AppDialog .dlgBtn
+{
+    font-size: 80%;
+    border: 2px solid #a0a000;
+    background: #909000;
+    color: #000000;
+    border-radius: .5em;
+    transition: background .5s;
+    margin: 3px;
+}
+
+.AppDialog .dlgBtn.inline
+{
+	display: inline-block;	
+}
+
+.AppDialog .dlgBtn.ctr
+{
+    font-size: 100%;
+    display: block;
+    margin: 1em auto 0 auto;
+}
+
+.AppDialog .dlgBtn.right
+{
+    font-size: 100%;
+	display: inline-block;
+	float: right;
+    margin: 1em;	
+}
+
+
+.AppDialog .dlgBtn.sq
+{
+    font-size: 100%;
+    margin: 2px;
+    padding: 0;
+    border-radius: .1em;    
+}
+
+.AppDialog .dlgBtn:disabled
+{
+    background: #404040;
+    color: #808080;
+}
+
+.AppDialog .dlgBtn:not(:disabled):hover
+{
+    background: #f0f0a0;
+    box-shadow: 0px 0px 10px 5px rgba(64,128,64,.5);   
+}
+
+.AppDialog.newContract
+{
+    width: 60%;    
+}
+
+.AppDialog.newContract .dlgTitle
+{
+    margin: 10px;
+}
+
+.AppDialog.newContract .left {
+    width: 15%;
+}
+
+.AppDialog.delContract
+{
+    width: 50%;    
+}
+
+
+

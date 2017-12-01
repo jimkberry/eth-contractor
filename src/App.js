@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
-import { contractABIs, contractList } from './contract-abis';
+import { defContractABIs } from './contract-abis';
 import {ContractInfo, web3} from './contract-info';
 import './App.css';
-import './app-panel.css';
+import "./app-dialog.css";
+import "./app-panel.css"
+import AppDialog from "./app-dialog.js"
+import NewContractDlg from './new-contract-dlg.js'; 
+import DelContractDlg from './del-contract-dlg.js'; 
 
 class App extends Component {
     
     constructor(props) {
       super(props);
 
-      let cName = Object.keys(contractABIs)[0];
-      let contractInfo = new ContractInfo(cName);
+      let ABIs=defContractABIs;
+      let cName = Object.keys(ABIs)[0];
+      let contractInfo = new ContractInfo(ABIs,cName);
       let fSig =  contractInfo.funcSigs[0]; 
       let defParams = this.defParams(contractInfo,fSig)        
       
       this.state = { 
+              contractABIs: ABIs,
               contractInfo: contractInfo,
               curFuncSig: fSig,
-              funcParams: defParams
+              funcParams: defParams,
+              appDlgDisabledFor: null // or non-null "reason" (addContract)
       };
     }    
     
@@ -55,7 +62,7 @@ class App extends Component {
     }
     
     setContract = (cName) => {
-        let contractInfo = new ContractInfo(cName);
+        let contractInfo = new ContractInfo(this.state.contractABIs,cName);
         let fSig =  contractInfo.funcSigs[0]; 
         let defParams = this.defParams(contractInfo,fSig)        
         
@@ -103,6 +110,42 @@ class App extends Component {
   
     }
     
+    // New contract
+    showNewContractDlg = (ev) => {
+        this.setState({appDlgDisabledFor: "newContractDlg"});
+    }
+    
+    cancelNewContract = () => {
+        this.setState({appDlgDisabledFor: null});        
+    }
+    
+    doNewContract = (cName,abi) => {
+        let newABIs = {...this.state.contractABIs};
+        newABIs[cName]=abi;;
+        this.setState({appDlgDisabledFor: null,
+                        contractABIs: newABIs});                  
+    }    
+    
+    // delete contract
+    showDelContractDlg = (ev) => {
+        this.setState({appDlgDisabledFor: "delContractDlg"});
+    }
+    
+    cancelDelContract = () => {
+        this.setState({appDlgDisabledFor: null});        
+    }
+    
+    doDelContract = () => {
+        let cName = this.state.contractInfo.name;
+        let newABIs = {...this.state.contractABIs};
+        delete newABIs[cName];
+        cName = Object.keys(newABIs)[0];
+        this.setState({appDlgDisabledFor: null,
+            contractABIs: newABIs}); 
+        this.setContract(cName);
+    }     
+    
+    
     paramsForm = (contractInfo, fSig, curVals) => {
         let inData = contractInfo.inputSpecs[fSig];
 
@@ -122,7 +165,7 @@ class App extends Component {
             });
         
         return(             
-           <div className='AppPanel internal'>
+           <div className='AppPanel'>
                {dataRows}
            </div>  
         );  
@@ -174,7 +217,7 @@ class App extends Component {
         //console.log(contractInfo.inst.methods[baseName]().encodeABI())
         
         return(             
-           <div className='AppPanel internal'>
+           <div className='AppPanel'>
                <label htmlFor="call_fld" className="panLabel left small">Call:</label> 
                <span id="call_fld" className="valueFld">{callStr}</span>
                <br />        
@@ -195,6 +238,7 @@ class App extends Component {
         let ci = this.state.contractInfo;
         let curFuncSig = ts.curFuncSig;
         let curVals = ts.funcParams;
+        let contractList=Object.keys(ts.contractABIs).sort();
         
         let paramPanel = this.paramsForm(ci, curFuncSig, curVals);
         
@@ -202,20 +246,26 @@ class App extends Component {
         
         return (
             <div className="App" style={{height: window.innerHeight+"px"}}>
-                <div className='AppPanel'>
                 
-                    <p className="panTitle">Contract encodeABI() Helper</p>
+               <AppDialog disabled={ts.appDlgDisabledFor!=null}>
+                
+                    <p className="dlgTitle">Contract encodeABI() Helper</p>
                     
-                    <label htmlFor="contract_fld" className="panLabel left">Contract: </label>          
-                    <select id="contract_fld" className="panSelFld" onChange={this.onSelect} 
-                        defaultValue={ts.contract_name}>         
-                          {contractList().map((cName, i) => {
+                    <label htmlFor="contract_fld" className="dlgLabel left">Contract: </label>          
+                    <select id="contract_fld" className="dlgSelFld" onChange={this.onSelect} 
+                        value={ci.name}>         
+                          {contractList.map((cName, i) => {
                               return <option key={i} value={cName}>{cName}</option>;              
                           })}          
-                    </select><br /> 
+                    </select>
                     
-                    <label htmlFor="function_fld" className="panLabel left">Function: </label>          
-                    <select id="function_fld" className="panSelFld" onChange={this.onSelect} 
+                    &nbsp;<button className="dlgBtn" onClick={this.showNewContractDlg}>Add New</button>
+                    <button className="dlgBtn" onClick={this.showDelContractDlg}>Delete</button>
+                    
+                    <br />
+                    
+                    <label htmlFor="function_fld" className="dlgLabel left">Function: </label>          
+                    <select id="function_fld" className="dlgSelFld" onChange={this.onSelect} 
                         value={curFuncSig}>         
                           {ci.funcSigs.map((sig, i) => {
                               return <option key={i} value={sig}>{ci.funcSpecs[sig]}</option>;              
@@ -228,7 +278,10 @@ class App extends Component {
                     
                     {outputs}
                     
-                </div>            
+                </AppDialog> 
+                <NewContractDlg show={ts.appDlgDisabledFor==="newContractDlg"} cancelFunc={this.cancelNewContract} createFunc={this.doNewContract} />                
+                <DelContractDlg show={ts.appDlgDisabledFor==="delContractDlg"} contractName={ci.name} cancelFunc={this.cancelDelContract} doItFunc={this.doDelContract} />
+
             </div>
         );
     }

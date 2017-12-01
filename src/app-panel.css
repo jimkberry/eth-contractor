@@ -1,19 +1,6 @@
 
+
 .AppPanel
-{
-    position: absolute;
-    background-color: black;
-    width: 80%;
-    top: 50%;
-    left: 50%;
-    border: solid 2px  #a0a000;
-    border-radius: 15px;
-    transform: translate(-50%, -50%);
-    padding: 20px 20px 20px 20px;
-
-}
-
-.AppPanel.internal
 {
 	position: relative;
     width: 90%;
@@ -115,12 +102,13 @@
 
 .AppPanel .panBtn
 {
-    border: 1px solid #00a000;
-    background: #006000;
-    color: #00ff00;
+	font-size: 80%;
+    border: 2px solid #a0a000;
+    background: #909000;
+    color: #000000;
     border-radius: .5em;
     transition: background .5s;
-    margin: 4px;
+    margin: 3px;
 }
 
 .AppPanel .panBtn.inline
@@ -160,7 +148,7 @@
 
 .AppPanel .panBtn:not(:disabled):hover
 {
-    background: #20a020;
+    background: #f0f0a0;
     box-shadow: 0px 0px 10px 5px rgba(64,128,64,.5);    
 }
 

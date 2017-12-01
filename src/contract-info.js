@@ -1,4 +1,3 @@
-import {contractABIs} from './contract-abis';
 import Web3 from 'web3';
 
 let web3 = new Web3(); // new Web3.providers.HttpProvider("http://localhost:8545")
@@ -17,11 +16,11 @@ let fnSig = function(fn) {
 };
 
 
-let ContractInfo = function(cName)
+let ContractInfo = function(abis, cName)
 {
   
     this.name = cName;
-    this.abi = contractABIs[cName];
+    this.abi = abis[cName];
     
     this.funcSigs = this.abi.map( (fn) => ["function","constructor"].indexOf(fn.type) !== -1 ? fnSig(fn) : null )
                             .filter((sig) => {return sig!==null} ).sort();   
@@ -46,14 +45,8 @@ let ContractInfo = function(cName)
     
 }
 
-let foo = function( cName )
-{
-    let abi = contractABIs[cName]    
-    return web3.eth.contract(abi);
-}
 
-
-export { ContractInfo, foo , web3};
+export { ContractInfo, web3};
 
 
         

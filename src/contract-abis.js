@@ -1,4 +1,4 @@
-let contractABIs = {
+let defContractABIs = {
     "MultiSigWalletWithDailyLimit": [{
         "constant": true,
         "inputs": [{
@@ -1032,12 +1032,8 @@ let contractABIs = {
 
 };
 
-function contractList() {
-    return Object.keys(contractABIs);
-}
 
-
-export {contractABIs, contractList};
+export {defContractABIs};
 
 
         
