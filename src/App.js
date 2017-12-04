@@ -277,7 +277,7 @@ class App extends Component {
                 
                <AppDialog disabled={ts.appDlgDisabledFor!=null}>
                 
-                    <p className="dlgTitle">Contract encodeABI() Helper</p>
+                    <p className="dlgTitle">Ethereum Contract encodeABI() Helper</p>
                     
                     <label htmlFor="contract_fld" className="dlgLabel left">Contract: </label>          
                     <select id="contract_fld" className="dlgSelFld" onChange={this.onSelect} 
