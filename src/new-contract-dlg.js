@@ -14,9 +14,12 @@ class NewContractDlg extends React.Component {
   }
   
   doCreate = (ev) => {
-    let newABI =  JSON.parse(this.state.abi);
-  
-    this.props.createFunc(this.state.contractName,newABI);
+    try {
+        let newABI =  JSON.parse(this.state.abi);
+        this.props.createFunc(this.state.contractName,newABI);
+    } catch (ex) {
+        alert(ex);
+    }
   }  
   
   onTextInput = (ev) => {
