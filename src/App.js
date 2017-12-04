@@ -13,7 +13,8 @@ class App extends Component {
     constructor(props) {
       super(props);
 
-      let ABIs=defContractABIs;
+      //let ABIs=defContractABIs;
+      let ABIs=this.loadData();      
       let cName = Object.keys(ABIs)[0];
       let contractInfo = new ContractInfo(ABIs,cName);
       let fSig =  contractInfo.funcSigs[0]; 
@@ -27,6 +28,32 @@ class App extends Component {
               appDlgDisabledFor: null // or non-null "reason" (addContract)
       };
     }    
+    
+    loadData = () => {
+
+        let ABIs = defContractABIs
+        if (typeof(Storage) !== "undefined") {
+            let loadedData = localStorage.getItem("contractABIs");
+            if (loadedData)
+                ABIs =  JSON.parse(loadedData);
+            
+        } else {
+            console.log("No local storage available.")
+        }      
+        
+        return ABIs;
+       
+    }
+    
+    saveData = (abiData) => {
+   
+        if (typeof(Storage) !== "undefined") {
+            localStorage.setItem("contractABIs", JSON.stringify(abiData));
+        } else {
+            console.log("No local storage available.")
+        }        
+        
+    }
     
     
     defaultVal = (typ) => {
@@ -121,7 +148,8 @@ class App extends Component {
     
     doNewContract = (cName,abi) => {
         let newABIs = {...this.state.contractABIs};
-        newABIs[cName]=abi;;
+        newABIs[cName]=abi;
+        this.saveData(newABIs);
         this.setState({appDlgDisabledFor: null,
                         contractABIs: newABIs});                  
     }    
