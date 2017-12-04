@@ -78,8 +78,7 @@
 }
 
 .AppDialog .valueFld
-{
-    display: inline-block;  
+{ 
     font-size: 80%;
     margin: 1em 0 0 1em;
     color: #ffa000;

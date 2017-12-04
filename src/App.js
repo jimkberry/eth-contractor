@@ -246,8 +246,8 @@ class App extends Component {
         
         return(             
            <div className='AppPanel'>
-               <label htmlFor="call_fld" className="panLabel left small">Call:</label> 
-               <span id="call_fld" className="valueFld">{callStr}</span>
+               <label htmlFor="call_fld" className="panLabel left small top">Call:</label> 
+               <p id="call_fld" className="valueFld">{callStr}</p>
                <br />        
                <label htmlFor="tx_data_fld" className="panLabel left small top">{dataLabel}:</label>  
                <textarea id="tx_data_fld" readOnly rows="6"

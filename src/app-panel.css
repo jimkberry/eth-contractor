@@ -81,7 +81,11 @@
 
 .AppPanel .valueFld
 {
-    display: inline-block;  
+    display: inline-block; 
+    width: 70%;
+    white-space: normal;  
+    word-wrap:break-word;
+    word-break:break-all;    
     font-size: 80%;
     margin: 1em 0 0 1em;
     color: #ffa000;
