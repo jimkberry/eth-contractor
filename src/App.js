@@ -89,9 +89,9 @@ class App extends Component {
     }
     
     setContract = (cName) => {
-        let contractInfo = new ContractInfo(this.state.contractABIs,cName);
-        let fSig =  contractInfo.funcSigs[0]; 
-        let defParams = this.defParams(contractInfo,fSig)        
+        let contractInfo = cName? new ContractInfo(this.state.contractABIs,cName) : null;
+        let fSig =  cName ? contractInfo.funcSigs[0] : null; 
+        let defParams = cName ? this.defParams(contractInfo,fSig) : null;        
         
         this.setState({ 
                 contractInfo: contractInfo,
@@ -149,9 +149,9 @@ class App extends Component {
     doNewContract = (cName,abi) => {
         let newABIs = {...this.state.contractABIs};
         newABIs[cName]=abi;
-        this.saveData(newABIs);
+        this.saveData(newABIs);        
         this.setState({appDlgDisabledFor: null,
-                        contractABIs: newABIs});                  
+                        contractABIs: newABIs});        
     }    
     
     // delete contract
@@ -167,15 +167,17 @@ class App extends Component {
         let cName = this.state.contractInfo.name;
         let newABIs = {...this.state.contractABIs};
         delete newABIs[cName];
-        cName = Object.keys(newABIs)[0];
+        this.saveData(newABIs);        
         this.setState({appDlgDisabledFor: null,
-            contractABIs: newABIs}); 
-        this.setContract(cName);
+            contractABIs: newABIs});   
+        const namesArray = Object.keys(newABIs);
+        cName =  namesArray.length > 0 ? namesArray[0] : null;        
+        this.setContract(cName); 
     }     
     
     
     paramsForm = (contractInfo, fSig, curVals) => {
-        let inData = contractInfo.inputSpecs[fSig];
+        let inData = contractInfo ? contractInfo.inputSpecs[fSig] : null;
 
         if (!inData || !inData.length)
             return null;
@@ -256,7 +258,42 @@ class App extends Component {
            </div>  
         );  
     }    
-       
+     
+    selectPanel = (contractList,contractInfo,curFuncSig) => {
+
+        let conSelect = <span className="valueFld">None Defined</span>;
+        if ( contractList.length && contractInfo)
+            conSelect =                  
+               <select id="contract_fld" className="dlgSelFld" onChange={this.onSelect} 
+                   value= {contractInfo.name}>         
+               {contractList.map((cName, i) => {
+                       return <option key={i} value={cName}>{cName}</option>;              
+                   }) }          
+               </select> ;
+               
+        let funcSel = <span className="valueFld">No Contract</span>;
+        if (contractInfo)
+            funcSel = 
+                <select id="function_fld" className="dlgSelFld" onChange={this.onSelect} 
+                        value={curFuncSig}>         
+                    { contractInfo.funcSigs.map((sig, i) => {
+                        return <option key={i} value={sig}>{contractInfo.funcSpecs[sig]}</option>;              
+                    })}          
+                </select>;
+  
+        return(       
+                <div>
+                <label htmlFor="contract_fld" className="dlgLabel left">Contract: </label>
+                {conSelect}             
+                &nbsp;<button className="dlgBtn" onClick={this.showNewContractDlg}>Add New</button>
+                <button className="dlgBtn" onClick={this.showDelContractDlg}>Delete</button>
+                <br />         
+                <label htmlFor="function_fld" className="dlgLabel left">Function: </label>          
+                {funcSel}
+                </div>
+        );  
+    }        
+    
     render() {
         
         let ts = this.state;
@@ -264,9 +301,18 @@ class App extends Component {
             return null;
                 
         let ci = this.state.contractInfo;
+        let contractList=Object.keys(ts.contractABIs).sort();        
+     
+        if ((ci===null) && (contractList.length > 0))
+        {
+            this.setContract(contractList[0]);   
+            return null;
+        }
+ 
         let curFuncSig = ts.curFuncSig;
         let curVals = ts.funcParams;
-        let contractList=Object.keys(ts.contractABIs).sort();
+        
+        let selectPanel = this.selectPanel(contractList, ci, curFuncSig); 
         
         let paramPanel = this.paramsForm(ci, curFuncSig, curVals);
         
@@ -278,29 +324,8 @@ class App extends Component {
                <AppDialog disabled={ts.appDlgDisabledFor!=null}>
                 
                     <p className="dlgTitle">Ethereum Contract encodeABI() Helper</p>
-                    
-                    <label htmlFor="contract_fld" className="dlgLabel left">Contract: </label>          
-                    <select id="contract_fld" className="dlgSelFld" onChange={this.onSelect} 
-                        value={ci.name}>         
-                          {contractList.map((cName, i) => {
-                              return <option key={i} value={cName}>{cName}</option>;              
-                          })}          
-                    </select>
-                    
-                    &nbsp;<button className="dlgBtn" onClick={this.showNewContractDlg}>Add New</button>
-                    <button className="dlgBtn" onClick={this.showDelContractDlg}>Delete</button>
-                    
-                    <br />
-                    
-                    <label htmlFor="function_fld" className="dlgLabel left">Function: </label>          
-                    <select id="function_fld" className="dlgSelFld" onChange={this.onSelect} 
-                        value={curFuncSig}>         
-                          {ci.funcSigs.map((sig, i) => {
-                              return <option key={i} value={sig}>{ci.funcSpecs[sig]}</option>;              
-                          })}          
-                    </select><br /> 
-                    
-                    <br />
+     
+                    {selectPanel}<br />
                     
                     {paramPanel}<br />    
                     
@@ -308,7 +333,7 @@ class App extends Component {
                     
                 </AppDialog> 
                 <NewContractDlg show={ts.appDlgDisabledFor==="newContractDlg"} cancelFunc={this.cancelNewContract} createFunc={this.doNewContract} />                
-                <DelContractDlg show={ts.appDlgDisabledFor==="delContractDlg"} contractName={ci.name} cancelFunc={this.cancelDelContract} doItFunc={this.doDelContract} />
+                <DelContractDlg show={ts.appDlgDisabledFor==="delContractDlg"} contractName={ci ? ci.name : ""} cancelFunc={this.cancelDelContract} doItFunc={this.doDelContract} />
 
             </div>
         );
