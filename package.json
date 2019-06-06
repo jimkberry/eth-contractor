@@ -4,10 +4,11 @@
   "private": false,
   "homepage": "https://jimkberry.github.io/eth-contractor",
   "dependencies": {
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
-    "react-scripts": "1.0.17",
-    "web3": "^1.0.0-beta.26"
+    "jest": "^24.8.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "^3.0.1",
+    "web3": "^1.0.0-beta.55"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -16,9 +17,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
-    
   },
   "devDependencies": {
-    "gh-pages": "^1.1.0"
+    "gh-pages": "^2.0.1"
   }
 }
