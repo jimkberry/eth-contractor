@@ -25,7 +25,7 @@
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0",
+    "gh-pages": "^5.0.0",
     "react-app-rewired": "^2.2.1"
   },
   "browserslist": {
